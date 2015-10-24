@@ -37,7 +37,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'forum',
+
+    'system.users',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -57,7 +58,9 @@ ROOT_URLCONF = 'blueking_forum.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -102,3 +105,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# System settings
+
+AUTH_USER_MODEL = 'users.User'
+
+# Import local settings
+
+try:
+    from blueking_forum.local_settings import *
+except ImportError:
+    pass
