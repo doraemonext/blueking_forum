@@ -38,6 +38,10 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'apps.common',
+    'apps.forum',
+    'apps.ucenter',
+
     'system.users',
 )
 
