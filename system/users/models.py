@@ -1,9 +1,40 @@
 # -*- coding: utf-8 -*-
 
-from django.contrib.auth.models import Group
+from __future__ import absolute_import, unicode_literals
+
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
 from django.utils import timezone
+
+
+class Group(models.Model):
+    name = models.CharField('用户组名称', max_length=255)
+    stars = models.SmallIntegerField('星星数')
+
+    class Meta:
+        db_table = 'groups'
+        verbose_name = '用户组'
+        verbose_name_plural = '用户组'
+
+
+class GroupPermission(models.Model):
+    group = models.ForeignKey(Group, verbose_name='所属用户组')
+    read_access = models.SmallIntegerField('阅读权限', default=0)
+    allow_post = models.BooleanField('允许发帖', default=False)
+    allow_reply = models.BooleanField('允许回复', default=False)
+    allow_get_attach = models.BooleanField('允许下载/查看附件', default=False)
+    allow_post_attach = models.BooleanField('允许发布附件', default=False)
+    allow_post_image = models.BooleanField('允许发布图片', default=False)
+    allow_search = models.BooleanField('允许搜索', default=False)
+    allow_anonymous = models.BooleanField('允许匿名发帖', default=False)
+    max_signature_size = models.IntegerField('用户签名最大字节数', default=0)
+    max_attach_size = models.BigIntegerField('最大附件尺寸', default=0)
+    attach_extensions = models.CharField('允许上传的附件扩展名', max_length=255, default='')
+
+    class Meta:
+        db_table = 'group_permissions'
+        verbose_name = '用户组权限'
+        verbose_name_plural = '用户组权限'
 
 
 class UserManager(BaseUserManager):
@@ -28,17 +59,19 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser):
-    username = models.CharField(u'用户名', max_length=30, unique=True)
-    email = models.EmailField(u'电子邮件地址', max_length=255)
-    nickname = models.CharField(u'昵称', max_length=30, default='')
-    is_active = models.BooleanField(u'是否激活', default=False)
-    date_joined = models.DateTimeField(u'注册日期', default=timezone.now)
+    username = models.CharField('用户名', max_length=30, unique=True)
+    email = models.EmailField('电子邮件地址', max_length=255)
+    group = models.ForeignKey(Group, verbose_name='所属用户组')
+    nickname = models.CharField('昵称', max_length=30, default='')
+    is_active = models.BooleanField('是否激活', default=False)
+    date_joined = models.DateTimeField('注册日期', default=timezone.now)
 
     objects = UserManager()
 
     class Meta:
-        db_table = 'user'
-        default_permissions = ('add', 'change', 'delete', 'view')
+        db_table = 'users'
+        verbose_name = '用户'
+        verbose_name_plural = '用户'
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']
