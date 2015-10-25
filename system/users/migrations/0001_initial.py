@@ -38,6 +38,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.CharField(unique=True, max_length=255, verbose_name='\u7528\u6237\u7ec4\u540d\u79f0')),
+                ('type', models.SmallIntegerField(verbose_name='\u7528\u6237\u7ec4\u7c7b\u578b', choices=[(0, '\u7cfb\u7edf\u7528\u6237\u7ec4'), (1, '\u6b63\u5e38\u7528\u6237\u7ec4')])),
                 ('stars', models.SmallIntegerField(default=0, verbose_name='\u661f\u661f\u6570')),
             ],
             options={
@@ -47,7 +48,7 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
-            name='GroupPermission',
+            name='MemberGroupPermission',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('read_access', models.SmallIntegerField(default=0, verbose_name='\u9605\u8bfb\u6743\u9650')),
@@ -64,14 +65,42 @@ class Migration(migrations.Migration):
                 ('group', models.OneToOneField(verbose_name='\u6240\u5c5e\u7528\u6237\u7ec4', to='users.Group')),
             ],
             options={
-                'db_table': 'group_permissions',
-                'verbose_name': '\u7528\u6237\u7ec4\u6743\u9650',
-                'verbose_name_plural': '\u7528\u6237\u7ec4\u6743\u9650',
+                'db_table': 'member_group_permissions',
+                'verbose_name': '\u6b63\u5e38\u7528\u6237\u7ec4\u6743\u9650',
+                'verbose_name_plural': '\u6b63\u5e38\u7528\u6237\u7ec4\u6743\u9650',
             },
         ),
-        migrations.AddField(
-            model_name='user',
-            name='group',
-            field=models.ForeignKey(verbose_name='\u6240\u5c5e\u7528\u6237\u7ec4', to='users.Group'),
+        migrations.CreateModel(
+            name='SystemGroupPermission',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('access_cp', models.BooleanField(default=False, verbose_name='\u5141\u8bb8\u8bbf\u95ee\u7ba1\u7406\u9762\u677f')),
+                ('allow_edit_post', models.BooleanField(default=False, verbose_name='\u5141\u8bb8\u7f16\u8f91\u5e16\u5b50')),
+                ('allow_stick_thread', models.BooleanField(default=False, verbose_name='\u5141\u8bb8\u7f6e\u9876\u4e3b\u9898')),
+                ('allow_delete_post', models.BooleanField(default=False, verbose_name='\u5141\u8bb8\u5220\u9664\u5e16\u5b50')),
+                ('allow_edit_user', models.BooleanField(default=False, verbose_name='\u5141\u8bb8\u7f16\u8f91\u7528\u6237')),
+                ('allow_post_announce', models.BooleanField(default=False, verbose_name='\u5141\u8bb8\u53d1\u5e03\u7ad9\u70b9\u516c\u544a')),
+                ('allow_view_log', models.BooleanField(default=False, verbose_name='\u5141\u8bb8\u67e5\u770b\u7ba1\u7406\u65e5\u5fd7')),
+                ('allow_edit_forum', models.BooleanField(default=False, verbose_name='\u5141\u8bb8\u7f16\u8f91\u677f\u5757')),
+                ('group', models.OneToOneField(verbose_name='\u6240\u5c5e\u7cfb\u7edf\u7528\u6237\u7ec4', to='users.Group')),
+            ],
+            options={
+                'db_table': 'system_group_permissions',
+                'verbose_name': '\u7cfb\u7edf\u7528\u6237\u7ec4\u6743\u9650',
+                'verbose_name_plural': '\u7cfb\u7edf\u7528\u6237\u7ec4\u6743\u9650',
+            },
+        ),
+        migrations.CreateModel(
+            name='UserGroups',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('group', models.ForeignKey(verbose_name='\u6240\u5c5e\u7528\u6237\u7ec4', to='users.Group')),
+                ('user', models.ForeignKey(verbose_name='\u6240\u5c5e\u7528\u6237', to='users.User')),
+            ],
+            options={
+                'db_table': 'user_groups',
+                'verbose_name': '\u7528\u6237\u4e0e\u7528\u6237\u7ec4\u8054\u63a5\u8868',
+                'verbose_name_plural': '\u7528\u6237\u4e0e\u7528\u6237\u7ec4\u8054\u63a5\u8868',
+            },
         ),
     ]
