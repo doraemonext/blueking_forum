@@ -7,9 +7,15 @@ from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, Permis
 from django.utils import timezone
 
 
+class GroupManager(models.Manager):
+    pass
+
+
 class Group(models.Model):
     name = models.CharField('用户组名称', max_length=255)
     stars = models.SmallIntegerField('星星数')
+
+    objects = GroupManager()
 
     class Meta:
         db_table = 'groups'
@@ -17,7 +23,11 @@ class Group(models.Model):
         verbose_name_plural = '用户组'
 
 
-class GroupPermission(models.Model):
+class PermissionManager(models.Manager):
+    pass
+
+
+class Permission(models.Model):
     group = models.ForeignKey(Group, verbose_name='所属用户组')
     read_access = models.SmallIntegerField('阅读权限', default=0)
     allow_post = models.BooleanField('允许发帖', default=False)
@@ -31,10 +41,12 @@ class GroupPermission(models.Model):
     max_attach_size = models.BigIntegerField('最大附件尺寸', default=0)
     attach_extensions = models.CharField('允许上传的附件扩展名', max_length=255, default='')
 
+    objects = PermissionManager()
+
     class Meta:
-        db_table = 'group_permissions'
-        verbose_name = '用户组权限'
-        verbose_name_plural = '用户组权限'
+        db_table = 'permissions'
+        verbose_name = '权限'
+        verbose_name_plural = '权限'
 
 
 class UserManager(BaseUserManager):

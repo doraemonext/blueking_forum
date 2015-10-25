@@ -47,7 +47,7 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
-            name='GroupPermission',
+            name='Permission',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('read_access', models.SmallIntegerField(default=0, verbose_name='\u9605\u8bfb\u6743\u9650')),
@@ -64,9 +64,9 @@ class Migration(migrations.Migration):
                 ('group', models.ForeignKey(verbose_name='\u6240\u5c5e\u7528\u6237\u7ec4', to='users.Group')),
             ],
             options={
-                'db_table': 'group_permissions',
-                'verbose_name': '\u7528\u6237\u7ec4\u6743\u9650',
-                'verbose_name_plural': '\u7528\u6237\u7ec4\u6743\u9650',
+                'db_table': 'permissions',
+                'verbose_name': '\u6743\u9650',
+                'verbose_name_plural': '\u6743\u9650',
             },
         ),
         migrations.AddField(
