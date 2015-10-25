@@ -37,8 +37,8 @@ class Migration(migrations.Migration):
             name='Group',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('name', models.CharField(max_length=255, verbose_name='\u7528\u6237\u7ec4\u540d\u79f0')),
-                ('stars', models.SmallIntegerField(verbose_name='\u661f\u661f\u6570')),
+                ('name', models.CharField(unique=True, max_length=255, verbose_name='\u7528\u6237\u7ec4\u540d\u79f0')),
+                ('stars', models.SmallIntegerField(default=0, verbose_name='\u661f\u661f\u6570')),
             ],
             options={
                 'db_table': 'groups',
@@ -47,7 +47,7 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
-            name='Permission',
+            name='GroupPermission',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('read_access', models.SmallIntegerField(default=0, verbose_name='\u9605\u8bfb\u6743\u9650')),
@@ -61,12 +61,12 @@ class Migration(migrations.Migration):
                 ('max_signature_size', models.IntegerField(default=0, verbose_name='\u7528\u6237\u7b7e\u540d\u6700\u5927\u5b57\u8282\u6570')),
                 ('max_attach_size', models.BigIntegerField(default=0, verbose_name='\u6700\u5927\u9644\u4ef6\u5c3a\u5bf8')),
                 ('attach_extensions', models.CharField(default='', max_length=255, verbose_name='\u5141\u8bb8\u4e0a\u4f20\u7684\u9644\u4ef6\u6269\u5c55\u540d')),
-                ('group', models.ForeignKey(verbose_name='\u6240\u5c5e\u7528\u6237\u7ec4', to='users.Group')),
+                ('group', models.OneToOneField(verbose_name='\u6240\u5c5e\u7528\u6237\u7ec4', to='users.Group')),
             ],
             options={
-                'db_table': 'permissions',
-                'verbose_name': '\u6743\u9650',
-                'verbose_name_plural': '\u6743\u9650',
+                'db_table': 'group_permissions',
+                'verbose_name': '\u7528\u6237\u7ec4\u6743\u9650',
+                'verbose_name_plural': '\u7528\u6237\u7ec4\u6743\u9650',
             },
         ),
         migrations.AddField(

@@ -12,7 +12,7 @@ class GroupManager(models.Manager):
 
 
 class Group(models.Model):
-    name = models.CharField('用户组名称', max_length=255)
+    name = models.CharField('用户组名称', max_length=255, unique=True)
     stars = models.SmallIntegerField('星星数', default=0)
 
     objects = GroupManager()
@@ -23,7 +23,7 @@ class Group(models.Model):
         verbose_name_plural = '用户组'
 
 
-class PermissionManager(models.Manager):
+class GroupPermissionManager(models.Manager):
     def get_permission(self, group, names):
         """
         获取指定用户组的权限
@@ -31,7 +31,7 @@ class PermissionManager(models.Manager):
         :param names: 权限名称 list, exp: ['read_access', 'max_attach_size']
         :return: 权限值 list, exp: [True, 2048]
         """
-        queryset = super(PermissionManager, self).filter(group=group)
+        queryset = super(GroupPermissionManager, self).filter(group=group)
         result = []
         if queryset.exists():
             perm = queryset[0]
@@ -45,8 +45,8 @@ class PermissionManager(models.Manager):
             raise ValueError('Group does not exist.')
 
 
-class Permission(models.Model):
-    group = models.ForeignKey(Group, verbose_name='所属用户组')
+class GroupPermission(models.Model):
+    group = models.OneToOneField(Group, verbose_name='所属用户组')
     read_access = models.SmallIntegerField('阅读权限', default=0)
     allow_post = models.BooleanField('允许发帖', default=False)
     allow_reply = models.BooleanField('允许回复', default=False)
@@ -59,12 +59,12 @@ class Permission(models.Model):
     max_attach_size = models.BigIntegerField('最大附件尺寸', default=0)
     attach_extensions = models.CharField('允许上传的附件扩展名', max_length=255, default='')
 
-    objects = PermissionManager()
+    objects = GroupPermissionManager()
 
     class Meta:
-        db_table = 'permissions'
-        verbose_name = '权限'
-        verbose_name_plural = '权限'
+        db_table = 'group_permissions'
+        verbose_name = '用户组权限'
+        verbose_name_plural = '用户组权限'
 
 
 class UserManager(BaseUserManager):
