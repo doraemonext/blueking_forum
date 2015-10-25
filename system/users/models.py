@@ -13,7 +13,7 @@ class GroupManager(models.Manager):
 
 class Group(models.Model):
     name = models.CharField('用户组名称', max_length=255)
-    stars = models.SmallIntegerField('星星数')
+    stars = models.SmallIntegerField('星星数', default=0)
 
     objects = GroupManager()
 
@@ -24,7 +24,25 @@ class Group(models.Model):
 
 
 class PermissionManager(models.Manager):
-    pass
+    def get_permission(self, group, names):
+        """
+        获取指定用户组的权限
+        :param group: 用户组 Group Instance
+        :param names: 权限名称 list, exp: ['read_access', 'max_attach_size']
+        :return: 权限值 list, exp: [True, 2048]
+        """
+        queryset = super(PermissionManager, self).filter(group=group)
+        result = []
+        if queryset.exists():
+            perm = queryset[0]
+            for name in names:
+                if hasattr(perm, name):
+                    result.append(getattr(perm, name))
+                else:
+                    raise ValueError('Permission name does not exist.')
+            return result
+        else:
+            raise ValueError('Group does not exist.')
 
 
 class Permission(models.Model):
