@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from django.http.response import HttpResponse
-from django.template import RequestContext
-from django.conf import settings
 
 from lib.views import TemplateView
 

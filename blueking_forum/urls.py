@@ -19,4 +19,5 @@ from django.conf import settings
 
 urlpatterns = [
     url(r'^common/', include('apps.common.urls', namespace='common')),
+    url(r'^ucenter/', include('apps.ucenter.urls', namespace='ucenter')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -8,7 +8,9 @@ from mako.lookup import TemplateLookup
 
 class TemplateView(DjangoTemplateView):
     def get_context_data(self, **kwargs):
-        return settings.CONSTANT
+        context = dict(settings.CONSTANT)
+        context['request'] = self.request
+        return context
 
     def get_template_instance(self):
         lookup = TemplateLookup(
