@@ -40,9 +40,9 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'apps.common',
-    'apps.forum',
-    'apps.ucenter',
+    'api.common',
+    'api.forum',
+    'api.ucenter',
 
     'system.users',
     'system.setting',
