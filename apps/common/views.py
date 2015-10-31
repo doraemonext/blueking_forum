@@ -1,15 +1,31 @@
 # -*- coding: utf-8 -*-
 
-from django.views.generic import TemplateView
 from django.http.response import HttpResponse
 from django.template import RequestContext
+from django.conf import settings
 
-from lib.utils.templates import template_instance
+from lib.views import TemplateView
 
 
 class RegisterView(TemplateView):
     template_name = 'common/register.html'
 
     def get(self, request, *args, **kwargs):
-        template = template_instance(self.template_name)
-        return HttpResponse(template.render())
+        template = self.get_template_instance()
+        return HttpResponse(template.render(**self.get_context_data()))
+
+
+class LoginView(TemplateView):
+    template_name = 'common/login.html'
+
+    def get(self, request, *args, **kwargs):
+        template = self.get_template_instance()
+        return HttpResponse(template.render(**self.get_context_data()))
+
+
+class ForgotPasswordView(TemplateView):
+    template_name = 'common/forgot_password.html'
+
+    def get(self, request, *args, **kwargs):
+        template = self.get_template_instance()
+        return HttpResponse(template.render(**self.get_context_data()))

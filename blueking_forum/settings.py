@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """
 Django settings for blueking_forum project.
 
@@ -118,6 +120,13 @@ STATICFILES_DIRS = (
 # System settings
 
 AUTH_USER_MODEL = 'users.User'
+
+# Custom settings
+
+CONSTANT = {
+    'STATIC_URL': STATIC_URL,
+    'TITLE': u'BlueKing 交流论坛',
+}
 
 # Import local settings
 
