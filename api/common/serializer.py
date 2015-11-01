@@ -5,6 +5,7 @@ from __future__ import absolute_import, unicode_literals
 from rest_framework import serializers
 
 from lib.utils import validator
+from system.users.models import User
 
 
 class LoginSerializer(serializers.Serializer):
@@ -35,3 +36,8 @@ class RegisterSerializer(serializers.Serializer):
         validator.MaxValue('密码', 64),
     ])
     next = serializers.CharField(max_length=255, required=False)
+
+    def validate_username(self, value):
+        if User.objects.filter(username=value).exists():
+            raise serializers.ValidationError('用户名已存在，请更换另一个用户名')
+        return value

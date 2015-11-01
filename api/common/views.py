@@ -67,12 +67,13 @@ class RegisterAPI(APIView):
             redirect_url = serializer.data.get('redirect_url')
 
             try:
-                user = User.objects.create_user(username=username, email=email, password=password)
+                User.objects.create_user(username=username, email=email, password=password)
             except DatabaseError:
                 response = {
                     'non_field_errors': ['注册用户时出错，请联系管理员']
                 }
                 return Response(response, status=status.HTTP_400_BAD_REQUEST)
+            user = authenticate(username=username, password=password)
             login(request, user)
             response = {
                 'redirect_url': self.get_redirect_url(redirect_url)
