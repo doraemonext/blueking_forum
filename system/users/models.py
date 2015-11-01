@@ -145,6 +145,7 @@ class User(AbstractBaseUser):
     email = models.EmailField('电子邮件地址', max_length=255)
     nickname = models.CharField('昵称', max_length=30, default='')
     is_active = models.BooleanField('是否激活', default=False)
+    is_superuser = models.BooleanField('是否为超级管理员', default=False)
     date_joined = models.DateTimeField('注册日期', default=timezone.now)
 
     objects = UserManager()
