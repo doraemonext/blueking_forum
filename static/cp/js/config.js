@@ -14,18 +14,21 @@ require.config({
     },
     paths: {
         'jquery': 'plugins/jquery/jquery.min',
+
         'underscore': 'plugins/underscore/underscore.min',
         'backbone': 'plugins/backbone/backbone.min',
 
         'backbone-paginator': 'plugins/backbone/backbone.paginator.min',
         'bootstrap': 'plugins/bootstrap/bootstrap.min',
+        'jquery-ui': 'plugins/jquery-ui/jquery-ui.min',
         'jquery-cookie': 'plugins/jquerycookie/jquery.cookie',
         'jquery-validate': 'plugins/jqueryvalidate/jquery.validate.min',
         'jquery-form': 'plugins/jqueryform/jquery.form',
         'noty': 'plugins/noty/jquery.noty.packaged.min',
         'spin': 'plugins/spin/spin.min',
         'ckeditor': 'plugins/ckeditor/ckeditor',
-        'common': 'common',
+        'theme-app': 'plugins/inspinia/inspinia',
+        'common': 'common'
 /*
         'module.common.app-view': 'module/common/app_view',
         'module.common.app-breadcrumb-view': 'module/common/app_breadcrumb_view',
