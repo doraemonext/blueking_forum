@@ -3,9 +3,10 @@
 from django.http.response import HttpResponse
 
 from lib.views import TemplateView
+from lib.utils.mixin import LoginRequiredMixin
 
 
-class UCenterHomeView(TemplateView):
+class UCenterHomeView(LoginRequiredMixin, TemplateView):
     template_name = 'ucenter/home.html'
 
     def get(self, request, *args, **kwargs):

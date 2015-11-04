@@ -196,3 +196,14 @@ function SmoothlyMenu() {
     }
 }
 
+$("#logout-button").bind("click", function () {
+    $.ajax({
+        type: "GET",
+        dataType: "json",
+        url: "/api/common/logout/",
+        cache: false,
+        success: function (data) {
+            window.location.href = data["redirect_url"];
+        }
+    });
+});
