@@ -3,9 +3,10 @@
 from django.http.response import HttpResponse
 
 from lib.views import TemplateView
+from lib.utils.mixin import AnonymousRequiredMixin
 
 
-class RegisterView(TemplateView):
+class RegisterView(AnonymousRequiredMixin, TemplateView):
     template_name = 'common/register.html'
 
     def get(self, request, *args, **kwargs):
@@ -13,7 +14,7 @@ class RegisterView(TemplateView):
         return HttpResponse(template.render(**self.get_context_data()))
 
 
-class LoginView(TemplateView):
+class LoginView(AnonymousRequiredMixin, TemplateView):
     template_name = 'common/login.html'
 
     def get(self, request, *args, **kwargs):
@@ -21,7 +22,7 @@ class LoginView(TemplateView):
         return HttpResponse(template.render(**self.get_context_data()))
 
 
-class ForgotPasswordView(TemplateView):
+class ForgotPasswordView(AnonymousRequiredMixin, TemplateView):
     template_name = 'common/forgot_password.html'
 
     def get(self, request, *args, **kwargs):
