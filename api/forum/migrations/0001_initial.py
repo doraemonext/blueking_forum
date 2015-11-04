@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
                 ('posts', models.BigIntegerField(default=0, verbose_name='\u5e16\u5b50\u6570\u91cf')),
                 ('today_posts', models.BigIntegerField(default=0, verbose_name='\u4eca\u65e5\u53d1\u5e16\u6570\u91cf')),
                 ('yesterday_posts', models.BigIntegerField(default=0, verbose_name='\u6628\u65e5\u53d1\u5e16\u6570\u91cf')),
-                ('parent', models.ForeignKey(default=0, verbose_name='\u4e0a\u7ea7\u8bba\u575b', to='forum.Forum')),
+                ('parent', models.ForeignKey(verbose_name='\u4e0a\u7ea7\u8bba\u575b', blank=True, to='forum.Forum', null=True)),
             ],
             options={
                 'db_table': 'forum',

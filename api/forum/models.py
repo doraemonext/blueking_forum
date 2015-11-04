@@ -12,7 +12,7 @@ class ForumManager(models.Manager):
 
 
 class Forum(models.Model):
-    parent = models.ForeignKey('self', verbose_name='上级论坛', default=0)
+    parent = models.ForeignKey('self', verbose_name='上级论坛', blank=True, null=True)
     name = models.CharField('名称', max_length=50)
     description = models.TextField('描述')
     displayorder = models.IntegerField('显示顺序', default=0)

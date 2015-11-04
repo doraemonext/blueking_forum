@@ -55,3 +55,4 @@ class Setting(models.Model):
         verbose_name = u'系统设置'
         verbose_name_plural = u'系统设置'
         db_table = 'setting'
+        app_label = 'setting'
