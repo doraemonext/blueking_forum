@@ -14,6 +14,7 @@ class ForumManager(models.Manager):
 class Forum(models.Model):
     parent = models.ForeignKey('self', verbose_name='上级论坛', default=0)
     name = models.CharField('名称', max_length=50)
+    description = models.TextField('描述')
     displayorder = models.IntegerField('显示顺序', default=0)
     threads = models.BigIntegerField('主题数量', default=0)
     posts = models.BigIntegerField('帖子数量', default=0)
