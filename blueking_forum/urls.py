@@ -16,10 +16,15 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.conf import settings
+from django.contrib import admin
+
+admin.autodiscover()
 
 urlpatterns = [
     url(r'^common/', include('apps.common.urls', namespace='common')),
     url(r'^ucenter/', include('apps.ucenter.urls', namespace='ucenter')),
     url(r'^forum/', include('apps.forum.urls', namespace='forum')),
     url(r'^api/', include('api.urls', namespace='api')),
+
+    url(r'^admin/', include(admin.site.urls)),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

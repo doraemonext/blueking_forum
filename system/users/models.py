@@ -4,7 +4,7 @@ from __future__ import absolute_import, unicode_literals
 
 from django.db import models
 from django.db.utils import DatabaseError
-from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
+from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin, AbstractUser
 from django.utils import timezone
 
 from system.exceptions import InvalidOperationError
@@ -140,32 +140,13 @@ class UserManager(BaseUserManager):
         return self._create_user(username, email, password, True, **extra_fields)
 
 
-class User(AbstractBaseUser):
-    username = models.CharField('用户名', max_length=30, unique=True)
-    email = models.EmailField('电子邮件地址', max_length=255)
+class User(AbstractUser):
     nickname = models.CharField('昵称', max_length=30, default='')
-    is_active = models.BooleanField('是否激活', default=False)
-    is_superuser = models.BooleanField('是否为超级管理员', default=False)
-    date_joined = models.DateTimeField('注册日期', default=timezone.now)
-
-    objects = UserManager()
 
     class Meta:
         db_table = 'users'
         verbose_name = '用户'
         verbose_name_plural = '用户'
-
-    USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['email']
-
-    def get_full_name(self):
-        return self.username
-
-    def get_short_name(self):
-        return self.username
-
-    def __unicode__(self):
-        return self.username
 
 
 class UserGroupsManager(models.Manager):

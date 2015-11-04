@@ -2,13 +2,16 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
+import django.contrib.auth.models
 import django.utils.timezone
-import system.users.models
+from django.conf import settings
+import django.core.validators
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
+        ('auth', '0006_require_contenttypes_0002'),
     ]
 
     operations = [
@@ -18,11 +21,15 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('password', models.CharField(max_length=128, verbose_name='password')),
                 ('last_login', models.DateTimeField(null=True, verbose_name='last login', blank=True)),
-                ('username', models.CharField(unique=True, max_length=30, verbose_name='\u7528\u6237\u540d')),
-                ('email', models.EmailField(max_length=255, verbose_name='\u7535\u5b50\u90ae\u4ef6\u5730\u5740')),
+                ('is_superuser', models.BooleanField(default=False, help_text='Designates that this user has all permissions without explicitly assigning them.', verbose_name='superuser status')),
+                ('username', models.CharField(error_messages={'unique': 'A user with that username already exists.'}, max_length=30, validators=[django.core.validators.RegexValidator('^[\\w.@+-]+$', 'Enter a valid username. This value may contain only letters, numbers and @/./+/-/_ characters.', 'invalid')], help_text='Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only.', unique=True, verbose_name='username')),
+                ('first_name', models.CharField(max_length=30, verbose_name='first name', blank=True)),
+                ('last_name', models.CharField(max_length=30, verbose_name='last name', blank=True)),
+                ('email', models.EmailField(max_length=254, verbose_name='email address', blank=True)),
+                ('is_staff', models.BooleanField(default=False, help_text='Designates whether the user can log into this admin site.', verbose_name='staff status')),
+                ('is_active', models.BooleanField(default=True, help_text='Designates whether this user should be treated as active. Unselect this instead of deleting accounts.', verbose_name='active')),
+                ('date_joined', models.DateTimeField(default=django.utils.timezone.now, verbose_name='date joined')),
                 ('nickname', models.CharField(default='', max_length=30, verbose_name='\u6635\u79f0')),
-                ('is_active', models.BooleanField(default=False, verbose_name='\u662f\u5426\u6fc0\u6d3b')),
-                ('date_joined', models.DateTimeField(default=django.utils.timezone.now, verbose_name='\u6ce8\u518c\u65e5\u671f')),
             ],
             options={
                 'db_table': 'users',
@@ -30,7 +37,7 @@ class Migration(migrations.Migration):
                 'verbose_name_plural': '\u7528\u6237',
             },
             managers=[
-                ('objects', system.users.models.UserManager()),
+                ('objects', django.contrib.auth.models.UserManager()),
             ],
         ),
         migrations.CreateModel(
@@ -95,12 +102,22 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('group', models.ForeignKey(verbose_name='\u6240\u5c5e\u7528\u6237\u7ec4', to='users.Group')),
-                ('user', models.ForeignKey(verbose_name='\u6240\u5c5e\u7528\u6237', to='users.User')),
+                ('user', models.ForeignKey(verbose_name='\u6240\u5c5e\u7528\u6237', to=settings.AUTH_USER_MODEL)),
             ],
             options={
                 'db_table': 'user_groups',
                 'verbose_name': '\u7528\u6237\u4e0e\u7528\u6237\u7ec4\u8054\u63a5\u8868',
                 'verbose_name_plural': '\u7528\u6237\u4e0e\u7528\u6237\u7ec4\u8054\u63a5\u8868',
             },
+        ),
+        migrations.AddField(
+            model_name='user',
+            name='groups',
+            field=models.ManyToManyField(related_query_name='user', related_name='user_set', to='auth.Group', blank=True, help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.', verbose_name='groups'),
+        ),
+        migrations.AddField(
+            model_name='user',
+            name='user_permissions',
+            field=models.ManyToManyField(related_query_name='user', related_name='user_set', to='auth.Permission', blank=True, help_text='Specific permissions for this user.', verbose_name='user permissions'),
         ),
     ]

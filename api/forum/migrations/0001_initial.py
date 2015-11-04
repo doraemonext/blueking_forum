@@ -2,12 +2,13 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
+from django.conf import settings
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('users', '0001_initial'),
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
@@ -16,6 +17,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.CharField(max_length=50, verbose_name='\u540d\u79f0')),
+                ('description', models.TextField(verbose_name='\u63cf\u8ff0')),
                 ('displayorder', models.IntegerField(default=0, verbose_name='\u663e\u793a\u987a\u5e8f')),
                 ('threads', models.BigIntegerField(default=0, verbose_name='\u4e3b\u9898\u6570\u91cf')),
                 ('posts', models.BigIntegerField(default=0, verbose_name='\u5e16\u5b50\u6570\u91cf')),
@@ -37,7 +39,7 @@ class Migration(migrations.Migration):
                 ('dateline', models.DateTimeField(auto_now_add=True, verbose_name='\u53d1\u8868\u65f6\u95f4')),
                 ('message', models.TextField(verbose_name='\u6d88\u606f\u5185\u5bb9')),
                 ('anonymous', models.BooleanField(default=False, verbose_name='\u662f\u5426\u533f\u540d')),
-                ('author', models.ForeignKey(verbose_name='\u4f5c\u8005', to='users.User')),
+                ('author', models.ForeignKey(verbose_name='\u4f5c\u8005', to=settings.AUTH_USER_MODEL)),
                 ('forum', models.ForeignKey(verbose_name='\u6240\u5c5e\u677f\u5757', to='forum.Forum')),
             ],
             options={
@@ -62,9 +64,9 @@ class Migration(migrations.Migration):
                 ('recommend_add', models.IntegerField(default=0, verbose_name='\u652f\u6301\u4eba\u6570')),
                 ('recommend_sub', models.IntegerField(default=0, verbose_name='\u53cd\u5bf9\u4eba\u6570')),
                 ('favtimes', models.IntegerField(default=0, verbose_name='\u4e3b\u9898\u6536\u85cf\u6b21\u6570')),
-                ('author', models.ForeignKey(related_name='author', verbose_name='\u4f5c\u8005', to='users.User')),
+                ('author', models.ForeignKey(related_name='author', verbose_name='\u4f5c\u8005', to=settings.AUTH_USER_MODEL)),
                 ('forum', models.ForeignKey(verbose_name='\u6240\u5c5e\u677f\u5757', to='forum.Forum')),
-                ('last_poster', models.ForeignKey(related_name='last_poster', verbose_name='\u6700\u540e\u53d1\u8868\u4eba', to='users.User')),
+                ('last_poster', models.ForeignKey(related_name='last_poster', verbose_name='\u6700\u540e\u53d1\u8868\u4eba', to=settings.AUTH_USER_MODEL)),
             ],
             options={
                 'db_table': 'thread',
