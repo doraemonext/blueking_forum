@@ -78,7 +78,7 @@ class RegisterAPI(APIView):
             response = {
                 'redirect_url': self.get_redirect_url(redirect_url)
             }
-            return Response(response, status=status.HTTP_400_BAD_REQUEST)
+            return Response(response)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

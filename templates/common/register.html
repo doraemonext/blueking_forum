@@ -20,25 +20,25 @@
     </head>
 
     <body class="gray-bg">
-        <div class="middle-box text-center loginscreen animated fadeInDown">
+        <div class="middle-box loginscreen animated fadeInDown">
             <div>
-                <div>
+                <div class="text-center">
                     <h1 class="logo-name">BK</h1>
                 </div>
-                <h3>欢迎注册 ${TITLE}</h3>
+                <h3 class="text-center">欢迎注册 ${TITLE}</h3>
                 <br/>
-                <form class="m-t" role="form" action="">
+                <form class="m-t" role="form" id="register-form">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="用户名" required="">
+                        <input type="text" class="form-control" placeholder="用户名" required="" name="username" id="username">
                     </div>
                     <div class="form-group">
-                        <input type="email" class="form-control" placeholder="电子邮箱" required="">
+                        <input type="email" class="form-control" placeholder="电子邮箱" required="" name="email" id="email">
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control" placeholder="密码" required="">
+                        <input type="password" class="form-control" placeholder="密码" required="" name="password" id="password">
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control" placeholder="确认密码" required="">
+                        <input type="password" class="form-control" placeholder="确认密码" required="" name="password_confirm" id="password_confirm">
                     </div>
                     <button type="submit" class="btn btn-primary block full-width m-b">注册</button>
 
@@ -47,14 +47,18 @@
                     </p>
                     <a class="btn btn-sm btn-white btn-block" href="${url_login}">登录</a>
                 </form>
-                <p class="m-t">
+                <p class="m-t text-center">
                     <small>${TITLE} &copy; 2015</small>
                 </p>
             </div>
         </div>
 
         <!-- Mainly scripts -->
-        <script src="${STATIC_URL}cp/js/jquery-2.1.1.js"></script>
-        <script src="${STATIC_URL}cp/js/bootstrap.min.js"></script>
+        <script src="${STATIC_URL}cp/js/require.js"></script>
+        <script>
+            require(["${STATIC_URL}cp/js/config.js"], function(config) {
+                require(['apps/common/register']);
+            });
+        </script>
     </body>
 </html>
