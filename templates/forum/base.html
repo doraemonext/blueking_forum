@@ -1,0 +1,353 @@
+<%!
+    from django.core.urlresolvers import reverse
+    url_login = reverse('common:login')
+    url_register = reverse('common:register')
+    url_ucenter_home = reverse('ucenter:home')
+%>
+
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="zh-cn" class="ie8"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="zh-cn">
+    <!--<![endif]-->
+    <head>
+        <meta charset="utf-8"/>
+        <title><%block name="title" /></title>
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+        <meta content="" name="description"/>
+        <meta content="" name="author"/>
+
+        <!-- ================== BEGIN BASE CSS STYLE ================== -->
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+        <link href="${STATIC_URL}forum/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+        <link href="${STATIC_URL}forum/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
+        <link href="${STATIC_URL}forum/css/animate.min.css" rel="stylesheet"/>
+        <link href="${STATIC_URL}forum/css/style.min.css" rel="stylesheet"/>
+        <link href="${STATIC_URL}forum/css/style-responsive.min.css" rel="stylesheet"/>
+        <link href="${STATIC_URL}forum/css/theme/default.css" id="theme" rel="stylesheet"/>
+        <!-- ================== END BASE CSS STYLE ================== -->
+
+        <!-- ================== BEGIN BASE JS ================== -->
+        <script src="${STATIC_URL}forum/plugins/pace/pace.min.js"></script>
+        <!-- ================== END BASE JS ================== -->
+    </head>
+    <body>
+        <!-- begin #header -->
+        <div id="header" class="header navbar navbar-default navbar-fixed-top">
+            <!-- begin container -->
+            <div class="container">
+                <!-- begin navbar-header -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#header-navbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="index.html" class="navbar-brand">
+                        <span class="navbar-logo"></span>
+                    <span class="brand-text">
+                        ${TITLE}
+                    </span>
+                    </a>
+                </div>
+                <!-- end navbar-header -->
+                <!-- begin #header-navbar -->
+                <div class="collapse navbar-collapse" id="header-navbar">
+                    <ul class="nav navbar-nav navbar-right">
+                        % if request.user.is_authenticated():
+                            <li><a href="###">欢迎您，${request.user.username}</a></li>
+                            <li><a href="${url_ucenter_home}">个人中心</a></li>
+                            <li><a href="#">登出</a></li>
+                        % else:
+                            <li><a href="${url_register}">新用户注册</a></li>
+                            <li><a href="${url_login}">登录</a></li>
+                        % endif
+                    </ul>
+                </div>
+                <!-- end #header-navbar -->
+            </div>
+            <!-- end container -->
+        </div>
+        <!-- end #header -->
+
+        <!-- begin content -->
+        <div class="content">
+            <!-- begin container -->
+            <div class="container">
+                <!-- begin panel-forum -->
+                <div class="panel panel-forum">
+                    <!-- begin panel-heading -->
+                    <div class="panel-heading">
+                        <h4 class="panel-title">Official Management District</h4>
+                    </div>
+                    <!-- end panel-heading -->
+                    <!-- begin forum-list -->
+                    <ul class="forum-list">
+                        <li>
+                            <!-- begin media -->
+                            <div class="media">
+                                <img src="${STATIC_URL}forum/img/icon-gold-note.png" alt=""/>
+                            </div>
+                            <!-- end media -->
+                            <!-- begin info-container -->
+                            <div class="info-container">
+                                <div class="info">
+                                    <h4 class="title"><a href="category_list.html">Announcement</a></h4>
+
+                                    <p class="desc">
+                                        The latest official news, events , announcements, updates and other information
+                                        released .
+                                    </p>
+                                </div>
+                                <div class="total-count">
+                                    <span class="total-post">1,293</span> <span class="divider">/</span>
+                                    <span class="total-comment">9,291</span>
+                                </div>
+                                <div class="latest-post">
+                                    <h4 class="title"><a href="category_list.html">Migrate from jQuery 1.8.x to jQuery
+                                        2.0.x</a></h4>
+
+                                    <p class="time">Yesterday 10:49pm
+                                        <a href="category_list.html" class="user">admin</a></p>
+                                </div>
+                            </div>
+                            <!-- end info-container -->
+                        </li>
+                        <li>
+                            <!-- begin media -->
+                            <div class="media">
+                                <img src="${STATIC_URL}forum/img/icon-cone.png" alt=""/>
+                            </div>
+                            <!-- end media -->
+                            <!-- begin info-container -->
+                            <div class="info-container">
+                                <div class="info">
+                                    <h4 class="title"><a href="category_list.html">Bug / Suggestion</a></h4>
+
+                                    <p class="desc">
+                                        Template development proposals, content-related complaints and bug submission.
+                                    </p>
+                                </div>
+                                <div class="total-count">
+                                    <span class="total-post">1,293</span> <span class="divider">/</span>
+                                    <span class="total-comment">9,291</span>
+                                </div>
+                                <div class="latest-post">
+                                    <h4 class="title"><a href="category_list.html">Migrate from jQuery 1.8.x to jQuery
+                                        2.0.x</a></h4>
+
+                                    <p class="time">Yesterday 10:49pm
+                                        <a href="category_list.html" class="user">admin</a></p>
+                                </div>
+                            </div>
+                            <!-- end info-container -->
+                        </li>
+                    </ul>
+                    <!-- end forum-list -->
+                </div>
+                <!-- end panel-forum -->
+                <!-- begin panel-forum -->
+                <div class="panel panel-forum">
+                    <!-- begin panel-heading -->
+                    <div class="panel-heading">
+                        <h4 class="panel-title">General Bootstrap Discussion</h4>
+                    </div>
+                    <!-- end panel-heading -->
+                    <!-- begin forum-list -->
+                    <ul class="forum-list">
+                        <li>
+                            <!-- begin media -->
+                            <div class="media">
+                                <img src="${STATIC_URL}forum/img/icon-chat-bubble.png" alt=""/>
+                            </div>
+                            <!-- end media -->
+                            <!-- begin info-container -->
+                            <div class="info-container">
+                                <div class="info">
+                                    <h4 class="title"><a href="category_list.html">CSS</a></h4>
+
+                                    <p class="desc">
+                                        The latest official news, events , announcements, updates and other information
+                                        released .
+                                    </p>
+                                </div>
+                                <div class="total-count">
+                                    <span class="total-post">1,293</span> <span class="divider">/</span>
+                                    <span class="total-comment">9,291</span>
+                                </div>
+                                <div class="latest-post">
+                                    <h4 class="title"><a href="category_list.html">Migrate from jQuery 1.8.x to jQuery
+                                        2.0.x</a></h4>
+
+                                    <p class="time">Yesterday 10:49pm
+                                        <a href="category_list.html" class="user">admin</a></p>
+                                </div>
+                            </div>
+                            <!-- end info-container -->
+                        </li>
+                        <li>
+                            <!-- begin media -->
+                            <div class="media">
+                                <img src="${STATIC_URL}forum/img/icon-chat-bubble.png" alt=""/>
+                            </div>
+                            <!-- end media -->
+                            <!-- begin info-container -->
+                            <div class="info-container">
+                                <div class="info">
+                                    <h4 class="title"><a href="category_list.html">Javascript / jQuery</a></h4>
+
+                                    <p class="desc">
+                                        Template introduction, installation, and integration in different framework.
+                                    </p>
+                                </div>
+                                <div class="total-count">
+                                    <span class="total-post">1,293</span> <span class="divider">/</span>
+                                    <span class="total-comment">9,291</span>
+                                </div>
+                                <div class="latest-post">
+                                    <h4 class="title"><a href="category_list.html">Migrate from jQuery 1.8.x to jQuery
+                                        2.0.x</a></h4>
+
+                                    <p class="time">Yesterday 10:49pm
+                                        <a href="category_list.html" class="user">admin</a></p>
+                                </div>
+                            </div>
+                            <!-- end info-container -->
+                        </li>
+                        <li>
+                            <!-- begin media -->
+                            <div class="media">
+                                <img src="${STATIC_URL}forum/img/icon-chat-bubble.png" alt=""/>
+                            </div>
+                            <!-- end media -->
+                            <!-- begin info-container -->
+                            <div class="info-container">
+                                <div class="info">
+                                    <h4 class="title"><a href="category_list.html">Twitter Bootstrap</a></h4>
+
+                                    <p class="desc">
+                                        Template development proposals, content-related complaints and bug submission.
+                                    </p>
+                                </div>
+                                <div class="total-count">
+                                    <span class="total-post">1,293</span> <span class="divider">/</span>
+                                    <span class="total-comment">9,291</span>
+                                </div>
+                                <div class="latest-post">
+                                    <h4 class="title"><a href="category_list.html">Migrate from jQuery 1.8.x to jQuery
+                                        2.0.x</a></h4>
+
+                                    <p class="time">Yesterday 10:49pm
+                                        <a href="category_list.html" class="user">admin</a></p>
+                                </div>
+                            </div>
+                            <!-- end info-container -->
+                        </li>
+                    </ul>
+                    <!-- end forum-list -->
+                </div>
+                <!-- end panel-forum -->
+                <!-- begin panel-forum -->
+                <div class="panel panel-forum">
+                    <!-- begin panel-heading -->
+                    <div class="panel-heading">
+                        <h4 class="panel-title">Mobile Apps Discussion</h4>
+                    </div>
+                    <!-- end panel-heading -->
+                    <!-- begin forum-list -->
+                    <ul class="forum-list">
+                        <li>
+                            <!-- begin media -->
+                            <div class="media">
+                                <img src="${STATIC_URL}forum/img/icon-discussion-grey.png" alt=""/>
+                            </div>
+                            <!-- end media -->
+                            <!-- begin info-container -->
+                            <div class="info-container">
+                                <div class="info">
+                                    <h4 class="title"><a href="category_list.html">Android</a></h4>
+
+                                    <p class="desc">
+                                        Template development proposals, content-related complaints and bug submission.
+                                    </p>
+                                </div>
+                                <div class="total-count">
+                                    <span class="total-post">1,293</span> <span class="divider">/</span>
+                                    <span class="total-comment">9,291</span>
+                                </div>
+                                <div class="latest-post">
+                                    <h4 class="title"><a href="category_list.html">Migrate from jQuery 1.8.x to jQuery
+                                        2.0.x</a></h4>
+
+                                    <p class="time">Yesterday 10:49pm
+                                        <a href="category_list.html" class="user">admin</a></p>
+                                </div>
+                            </div>
+                            <!-- end info-container -->
+                        </li>
+                        <li>
+                            <!-- begin media -->
+                            <div class="media">
+                                <img src="${STATIC_URL}forum/img/icon-discussion-grey.png" alt=""/>
+                            </div>
+                            <!-- end media -->
+                            <!-- begin info-container -->
+                            <div class="info-container">
+                                <div class="info">
+                                    <h4 class="title"><a href="category_list.html">iOS</a></h4>
+
+                                    <p class="desc">
+                                        Template development proposals, content-related complaints and bug submission.
+                                    </p>
+                                </div>
+                                <div class="total-count">
+                                    <span class="total-post">1,293</span> <span class="divider">/</span>
+                                    <span class="total-comment">9,291</span>
+                                </div>
+                                <div class="latest-post">
+                                    <h4 class="title"><a href="category_list.html">Migrate from jQuery 1.8.x to jQuery
+                                        2.0.x</a></h4>
+
+                                    <p class="time">Yesterday 10:49pm
+                                        <a href="category_list.html" class="user">admin</a></p>
+                                </div>
+                            </div>
+                            <!-- end info-container -->
+                        </li>
+                    </ul>
+                    <!-- end forum-list -->
+                </div>
+                <!-- end panel-forum -->
+            </div>
+            <!-- end container -->
+        </div>
+        <!-- end content -->
+
+        <!-- begin #footer-copyright -->
+        <div id="footer-copyright" class="footer-copyright">
+            <div class="container">
+                &copy; 2015 ${TITLE}
+            </div>
+        </div>
+        <!-- end #footer-copyright -->
+
+        <!-- ================== BEGIN BASE JS ================== -->
+        <script src="${STATIC_URL}forum/plugins/jquery/jquery-1.9.1.min.js"></script>
+        <script src="${STATIC_URL}forum/plugins/jquery/jquery-migrate-1.1.0.min.js"></script>
+        <script src="${STATIC_URL}forum/plugins/bootstrap/js/bootstrap.min.js"></script>
+        <!--[if lt IE 9]>
+		<script src="${STATIC_URL}forum/crossbrowserjs/html5shiv.js"></script>
+		<script src="${STATIC_URL}forum/crossbrowserjs/respond.min.js"></script>
+		<script src="${STATIC_URL}forum/crossbrowserjs/excanvas.min.js"></script>
+	<![endif]-->
+        <script src="${STATIC_URL}forum/plugins/jquery-cookie/jquery.cookie.js"></script>
+        <script src="${STATIC_URL}forum/js/apps.min.js"></script>
+        <!-- ================== END BASE JS ================== -->
+
+        <script>
+            $(document).ready(function () {
+                App.init();
+            });
+        </script>
+    </body>
+</html>

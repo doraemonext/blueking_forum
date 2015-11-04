@@ -23,7 +23,7 @@ class LoginAPI(APIView):
         if next:
             return next
         else:
-            return reverse('ucenter:home')
+            return reverse('forum:home')
 
     def post(self, request, *args, **kwargs):
         serializer = LoginSerializer(data=request.data)
@@ -56,7 +56,7 @@ class RegisterAPI(APIView):
         if next:
             return next
         else:
-            return reverse('ucenter:home')
+            return reverse('forum:home')
 
     def post(self, request, *args, **kwargs):
         serializer = RegisterSerializer(data=request.data)
@@ -89,6 +89,6 @@ class LogoutAPI(APIView):
     def get(self, request, *args, **kwargs):
         logout(request)
         response = {
-            'redirect_url': reverse('common:login'),
+            'redirect_url': reverse('forum:home'),
         }
         return Response(response, status=status.HTTP_200_OK)

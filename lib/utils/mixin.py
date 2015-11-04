@@ -13,4 +13,4 @@ class LoginRequiredMixin(OriginLoginRequiredMixin):
 
 class AnonymousRequiredMixin(OriginAnonymousRequiredMixin):
     def get_authenticated_redirect_url(self):
-        return reverse('ucenter:home')
+        return reverse('forum:home')

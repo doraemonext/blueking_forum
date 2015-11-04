@@ -20,5 +20,6 @@ from django.conf import settings
 urlpatterns = [
     url(r'^common/', include('apps.common.urls', namespace='common')),
     url(r'^ucenter/', include('apps.ucenter.urls', namespace='ucenter')),
+    url(r'^forum/', include('apps.forum.urls', namespace='forum')),
     url(r'^api/', include('api.urls', namespace='api')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
